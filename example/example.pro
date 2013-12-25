@@ -16,7 +16,8 @@ QT += qml quick
 }
 
 OTHER_FILES += \
-    tizen/manifest.xml
+    tizen/manifest.xml \
+    android/AndroidManifest.xml
 
 RESOURCES += \
     main.qrc
@@ -32,4 +33,9 @@ tizen {
     tizen_data.files += $$_PRO_FILE_PWD_/../src/qml
 
     load(tizen_app)
+}
+
+android {
+    ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+    ANDROID_EXTRA_LIBS = $$shadowed($$PWD)/../src/qml/Mana/libmana.so
 }
