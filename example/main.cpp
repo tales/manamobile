@@ -95,6 +95,11 @@ int main(int argc, char *argv[])
     context->setContextProperty("customServerListPath", customServerListPath);
     context->setContextProperty("customServer", customServer);
     context->setContextProperty("customPort", customPort);
+#ifdef Q_OS_ANDROID
+    context->setContextProperty("isAndroid", true);
+#else
+    context->setContextProperty("isAndroid", false);
+#endif
 
 #ifdef Q_OS_ANDROID
     engine.addImportPath(QLatin1String("assets:/qml"));

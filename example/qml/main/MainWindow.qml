@@ -48,10 +48,22 @@ Image {
         }
         onReconnectFailed: initialize()
     }
+
+    // Workaround for android
+    Timer {
+        interval: 1000
+        repeat: false
+        running: isAndroid && accountClient.connected && !client.reconnecting
+        onTriggered: {
+            window.state = "login";
+        }
+    }
+
     Connections {
         target: accountClient
+
         onConnected: {
-            if (!client.reconnecting)
+            if (!client.reconnecting && !isAndroid)
                 state = "login";
         }
         onLoggedOut: {
