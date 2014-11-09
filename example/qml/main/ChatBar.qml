@@ -4,6 +4,10 @@ import Mana 1.0
 FocusScope {
     id: chatBar;
 
+    Keys.onEscapePressed: {
+        close();
+    }
+
     Keys.onReturnPressed: {
         if (event.modifiers === Qt.NoModifier)
             sayText();
@@ -14,6 +18,7 @@ FocusScope {
 
     function open() {
         chatBar.focus = true;
+        chatInput.selectAll();
     }
 
     function sayText() {
@@ -22,6 +27,10 @@ FocusScope {
             chatInput.text = "";
         }
 
+        close();
+    }
+
+    function close() {
         chatInput.focus = false;
         Qt.inputMethod.hide();
         gamePage.focus = true;
