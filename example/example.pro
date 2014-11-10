@@ -16,7 +16,8 @@ QT += qml quick
 }
 
 OTHER_FILES += \
-    tizen/manifest.xml
+    tizen/manifest.xml \
+    android/AndroidManifest.xml
 
 RESOURCES += \
     main.qrc
@@ -33,3 +34,5 @@ tizen {
 
     load(tizen_app)
 }
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
