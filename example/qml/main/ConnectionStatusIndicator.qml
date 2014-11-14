@@ -17,4 +17,10 @@ Rectangle {
 
         return "orange";
     }
+
+    MouseArea {
+        anchors.fill: parent
+        cursorShape: "PointingHandCursor"
+        onClicked: client.disconnect();
+    }
 }
