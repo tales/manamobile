@@ -19,8 +19,17 @@ Item {
         x: 2;
         y: 2;
 
-        ConnectionStatusIndicator { client: accountClient; }
-        ConnectionStatusIndicator { client: chatClient; }
-        ConnectionStatusIndicator { client: gameClient; }
+        ConnectionStatusIndicator {
+            client: accountClient
+            label: 'A'
+        }
+        ConnectionStatusIndicator {
+            client: chatClient
+            label: 'C'
+        }
+        ConnectionStatusIndicator {
+            client: gameClient
+            label: 'G'
+        }
     }
 }

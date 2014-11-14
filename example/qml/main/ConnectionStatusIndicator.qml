@@ -3,6 +3,7 @@ import Mana 1.0
 
 Rectangle {
     property variant client;
+    property string label;
 
     width: 10;
     height: 10;
@@ -16,6 +17,13 @@ Rectangle {
             return "red";
 
         return "orange";
+    }
+
+    Text {
+        anchors.centerIn: parent
+
+        text: label
+        font.pixelSize: parent.height
     }
 
     MouseArea {
