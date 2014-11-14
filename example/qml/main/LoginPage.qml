@@ -176,8 +176,10 @@ Item {
 
     Connections {
         target: accountClient;
+
         onLoginFailed: errorLabel.showError(errorMessage);
         onRegistrationFailed: errorLabel.showError(errorMessage);
+        onDisconnected: errorLabel.showError(qsTr("Connection was lost!"))
     }
 
     Image {
