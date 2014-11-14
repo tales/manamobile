@@ -48,6 +48,7 @@ Image {
         }
         onReconnectFailed: initialize()
     }
+
     Connections {
         target: accountClient
         onConnected: {
@@ -57,6 +58,17 @@ Image {
         onLoggedOut: {
             if (state === "game")
                 accountClient.disconnect();
+        }
+    }
+
+    Connections {
+        target: gameClient
+        onDisconnected: {
+            if (state === "game") {
+                chatClient.disconnect();
+                accountClient.disconnect();
+                initialize();
+            }
         }
     }
 
