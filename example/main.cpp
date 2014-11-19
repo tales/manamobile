@@ -105,8 +105,13 @@ int main(int argc, char *argv[])
     engine.load(app.applicationDirPath() +
                 QLatin1String("/../data/qml/main/mobile.qml"));
 #else
+#ifdef Q_OS_OSX
+    const QString importPath = "/../Resources/qml/";
+#else
+    const QString importPath = "/../lib/libmana/qml/";
+#endif
     engine.addImportPath(adjustSharePath(app.applicationDirPath() +
-                                         QLatin1String("/../lib/libmana/qml/")));
+                         importPath));
     engine.load(adjustSharePath(QLatin1String("qml/main/mobile.qml")));
 #endif
 
