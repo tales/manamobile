@@ -139,7 +139,7 @@ Item {
         Button {
             text: qsTr("Delete")
             onClicked: confirmDialog.visible = true
-            enabled: characterList.currentIndex >= 0 && !characterChosen
+            enabled: characterList.currentIndex >= 0 && characterList.count > 0 && !characterChosen
         }
         Button {
             text: qsTr("New");
@@ -149,7 +149,7 @@ Item {
         Button {
             text: qsTr("Play")
             onClicked: chooseCharacter()
-            enabled: characterList.currentIndex >= 0 && !characterChosen
+            enabled: characterList.currentIndex >= 0 && characterList.count > 0 && !characterChosen
         }
     }
 
