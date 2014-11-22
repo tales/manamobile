@@ -32,6 +32,10 @@ Item {
             errorLabel.showError(qsTr("Passwords do not match"))
             return;
         }
+        if (passwordEdit.text.length < 4) {
+            errorLabel.showError(qsTr("Password must be at least 4 characters"));
+            return;
+        }
 
         loggingIn = true;
         errorLabel.clear();
