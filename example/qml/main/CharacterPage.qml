@@ -139,12 +139,12 @@ Item {
         Button {
             text: qsTr("Delete")
             onClicked: confirmDialog.visible = true
-            enabled: characterList.currentIndex >= 0 && !characterChosen
+            enabled: characterList.currentIndex >= 0 && characterList.count > 0 && !characterChosen
         }
         Button {
             text: qsTr("New");
             onClicked: window.state = "createCharacter";
-            enabled: characterList.count < accountClient.maxCharacters && characterList.count > 0 && !characterChosen
+            enabled: characterList.count < accountClient.maxCharacters && !characterChosen
         }
         Button {
             text: qsTr("Play")
