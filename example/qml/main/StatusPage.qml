@@ -83,6 +83,8 @@ MouseArea {
 
         Flickable {
             id: flickable
+            property bool showDistributablePoints: gameClient.attributePoints > 0 ||
+                                                   gameClient.correctionPoints > 0
 
             anchors.top: headerOrnamental.bottom
             anchors.left: parent.left
@@ -91,118 +93,49 @@ MouseArea {
             anchors.margins: 8
 
             interactive: contentHeight > height
-            contentHeight: grid.height
+            contentHeight: attributeGrid.height
 
-            GridLayout {
-                id: grid
+            Column {
+                anchors.fill: parent
+                spacing: flickable.showDistributablePoints ? 10 : 0
 
-                anchors.left: parent.left
-                anchors.right: parent.right
+                RowLayout {
+                    visible: flickable.showDistributablePoints
+                    Column {
+                        Text {
+                            text: qsTr("%L1 Points to distribute!").arg(attributeGrid.pointsToDistribute)
+                            font.pixelSize: 10
+                            font.bold: true
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            color: "green"
+                        }
 
-                columns: 2
-                rowSpacing: 5
-                columnSpacing: 5
-
-                AttributeLabel {
-                    name: qsTr("Strength")
-                    value: playerAttributes.strength
-                    Layout.row: 0
-                    Layout.column: 0
-                    Layout.fillWidth: true
-                }
-                AttributeLabel {
-                    name: qsTr("Damage")
-                    value: {
-                        var base = playerAttributes.damage;
-                        var min = Math.round(base);
-                        var max = Math.round(base + playerAttributes.damageDelta);
-                        return min + "-" + max;
+                        Text {
+                            text: qsTr("%L2 corrections are possible").arg(attributeGrid.pointsToCorrect)
+                            font.pixelSize: 10
+                            font.bold: true
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            color: "red"
+                        }
                     }
-                    Layout.row: 0
-                    Layout.column: 1
-                    Layout.fillWidth: true
+
+                    BrownButton {
+                        width: 30
+                        text: "✓"
+                        visible: attributeGrid.changesPlanned
+
+                        onClicked: {
+                            gameClient.modifyAttributes(attributeGrid.plannedChanges)
+                            attributeGrid.resetChanges();
+                        }
+                    }
                 }
 
-                AttributeLabel {
-                    name: qsTr("Agility")
-                    value: playerAttributes.agility
-                    Layout.row: 1
-                    Layout.column: 0
-                    Layout.fillWidth: true
-                }
-                AttributeLabel {
-                    name: qsTr("Movement speed")
-                    value: limitPrecision(playerAttributes.movementSpeed, 1)
-                    Layout.row: 1
-                    Layout.column: 1
-                    Layout.fillWidth: true
-                }
-                AttributeLabel {
-                    name: qsTr("Dodge")
-                    value: limitPrecision(playerAttributes.dodge, 1)
-                    Layout.row: 2
-                    Layout.column: 1
-                    Layout.fillWidth: true
-                }
+                AttributeList {
+                    id: attributeGrid
 
-                AttributeLabel {
-                    name: qsTr("Dexterity")
-                    value: playerAttributes.dexterity
-                    Layout.row: 3
-                    Layout.column: 0
-                    Layout.fillWidth: true
-                }
-                AttributeLabel {
-                    name: qsTr("Hit chance")
-                    value: limitPrecision(playerAttributes.hitChance, 1)
-                    Layout.row: 3
-                    Layout.column: 1
-                    Layout.fillWidth: true
-                }
-
-                AttributeLabel {
-                    name: qsTr("Vitality")
-                    value: playerAttributes.vitality
-                    Layout.row: 4
-                    Layout.column: 0
-                    Layout.fillWidth: true
-                }
-                AttributeLabel {
-                    name: qsTr("Health")
-                    value: playerAttributes.maxHealth
-                    Layout.row: 4
-                    Layout.column: 1
-                    Layout.fillWidth: true
-                }
-                AttributeLabel {
-                    name: qsTr("Regeneration")
-                    value: limitPrecision(playerAttributes.healthRegeneration / 10, 2) + "/s"
-                    Layout.row: 5
-                    Layout.column: 1
-                    Layout.fillWidth: true
-                }
-                AttributeLabel {
-                    name: qsTr("Defense")
-                    value: limitPrecision(playerAttributes.defense, 1)
-                    Layout.row: 6
-                    Layout.column: 1
-                    Layout.fillWidth: true
-                }
-
-                AttributeLabel {
-                    name: qsTr("Intelligence")
-                    value: playerAttributes.intelligence
-                    Layout.row: 7
-                    Layout.column: 0
-                    Layout.fillWidth: true
-                }
-
-                AttributeLabel {
-                    name: qsTr("Willpower")
-                    value: playerAttributes.willpower
-                    Layout.row: 8
-                    Layout.column: 0
-                    Layout.fillWidth: true
+                    anchors.left: parent.left
+                    anchors.right: parent.right
                 }
             }
         }

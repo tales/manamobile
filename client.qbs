@@ -39,6 +39,8 @@ CppApplication {
         files: [
             "ActionBar.qml",
             "AttributeLabel.qml",
+            "AttributeList.qml",
+            "AttributeEdit.qml",
             "BlueButton.qml",
             "BrownButton.qml",
             "Button.qml",

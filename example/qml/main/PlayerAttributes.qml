@@ -88,6 +88,25 @@ QtObject {
         }
     }
 
+    function attributeToId(attributeName) {
+        switch (attributeName) {
+        case "strength":
+            return 1;
+        case "agility":
+            return 2;
+        case "vitality":
+            return 3;
+        case "intelligence":
+            return 4;
+        case "dexterity":
+            return 5;
+        case "willpower":
+            return 6;
+        default:
+            throw "Missing mapping for attribute name (" + attributeName + ")!";
+        }
+    }
+
     function binding(attribute) {
         return Qt.binding(function() { return attribute.modified; });
     }

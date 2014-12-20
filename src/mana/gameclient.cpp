@@ -108,6 +108,37 @@ QDateTime GameClient::abilityCooldown() const
     return mAbilityCooldown;
 }
 
+void GameClient::modifyAttributes(const QVariantList &listOfChanges)
+{
+    // TODO: This should be better done in a single transaction,
+    // but that requires changes in the protocol
+    foreach (const QVariant &plannedChange, listOfChanges) {
+        Q_ASSERT(plannedChange.canConvert<QVariantMap>());
+
+        const QMap<QString, QVariant> &change = plannedChange.toMap();
+        const int id = change["id"].toInt();
+        const int raise = change["raise"].toInt();
+
+        Q_ASSERT(id != 0);
+
+        for (int i = raise; i < 0; ++i) {
+            lowerAttribute(id);
+        }
+    }
+
+    foreach (const QVariant &plannedChange, listOfChanges) {
+        const QMap<QString, QVariant> &change = plannedChange.toMap();
+        const int id = change["id"].toInt();
+        const int raise = change["raise"].toInt();
+
+        Q_ASSERT(id != 0);
+
+        for (int i = raise; i > 0; --i) {
+            raiseAttribute(id);
+        }
+    }
+}
+
 void GameClient::setPlayerName(const QString &name)
 {
     if (mPlayerName == name)
@@ -557,6 +588,20 @@ void GameClient::reset()
     mAttributeListModel->clear();
     mInventoryListModel->removeAllItems();
     mQuestlogListModel->clear();
+}
+
+void GameClient::lowerAttribute(int attributeId)
+{
+    MessageOut msg(Protocol::PGMSG_LOWER_ATTRIBUTE);
+    msg.writeInt32(attributeId);
+    send(msg);
+}
+
+void GameClient::raiseAttribute(int attributeId)
+{
+    MessageOut msg(Protocol::PGMSG_RAISE_ATTRIBUTE);
+    msg.writeInt16(attributeId);
+    send(msg);
 }
 
 void GameClient::handleConnectResponse(MessageIn &message)
