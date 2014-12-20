@@ -34,7 +34,11 @@ const unsigned int INITIAL_DATA_CAPACITY = 16;
 /** Factor by which the messageout data buffer is increased when too small. */
 const unsigned int CAPACITY_GROW_FACTOR = 2;
 
+#ifdef DEBUG_NETWORK
+static bool debugModeEnabled = true;
+#else
 static bool debugModeEnabled = false;
+#endif
 
 namespace Mana {
 
