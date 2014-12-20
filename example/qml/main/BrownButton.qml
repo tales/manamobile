@@ -8,7 +8,7 @@ import QtQuick.Controls.Styles 1.0
 Button {
     id: button
 
-    implicitHeight: Math.max(sizeLabel.height + 10, 30)
+    implicitHeight: Math.max(sizeLabel.height, 20)
 
     property bool keepPressed: false
 
@@ -34,11 +34,7 @@ Button {
                 id: label
                 text: control.text
                 color: "#3f2b25"
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                anchors.left: parent.left
-                anchors.rightMargin: 7
-                anchors.leftMargin: 7
+                anchors.centerIn: parent
                 font.pixelSize: 14
                 wrapMode: Text.WordWrap
             }

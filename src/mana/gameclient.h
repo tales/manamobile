@@ -25,6 +25,7 @@
 #include <QElapsedTimer>
 #include <QPoint>
 #include <QStringList>
+#include <QVariantList>
 #include <QVector2D>
 
 namespace Mana {
@@ -138,6 +139,8 @@ public:
     int attributePoints() const;
     int correctionPoints() const;
 
+    Q_INVOKABLE void modifyAttributes(const QVariantList &listOfChanges);
+
     Q_INVOKABLE void authenticate(const QString &token);
     Q_INVOKABLE void walkTo(int x, int y);
     Q_INVOKABLE void lookAt(qreal x, qreal y);
@@ -204,6 +207,9 @@ private:
     void playerPositionChanged();
     void restoreWalkingSpeed();
     void reset();
+
+    void lowerAttribute(int attributeId);
+    void raiseAttribute(int attributeId);
 
     void handleConnectResponse(MessageIn &message);
     void handleDisconnectResponse(MessageIn &message);
