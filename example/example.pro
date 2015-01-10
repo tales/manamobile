@@ -15,6 +15,8 @@ QT += qml quick
     qtcAddDeployment()
 }
 
+CONFIG += c++11
+
 OTHER_FILES += \
     tizen/manifest.xml \
     android/AndroidManifest.xml

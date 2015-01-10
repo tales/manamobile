@@ -25,6 +25,7 @@
 #include <QQmlContext>
 #include <QQuickWindow>
 #include <QScreen>
+#include <QCommandLineParser>
 
 #if !defined(Q_OS_ANDROID) && !defined(Q_OS_LINUX_TIZEN)
 static QString adjustSharePath(const QString &path)
@@ -63,59 +64,48 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    QStringList arguments = app.arguments();
+    QCommandLineParser commandLineParser;
 
-    QString customServerListPath;
-    QString customServer = "server.sourceoftales.org";
-    ushort customPort = 9601;
-    QString userName;
-    QString password;
-    int characterIndex = -1;
-    bool fullScreen = false;
+    commandLineParser.setApplicationDescription(
+                QGuiApplication::tr("Source of Tales client"));
+    commandLineParser.addVersionOption();
+    commandLineParser.addHelpOption();
 
-    for (int i = 1, max = arguments.length(); i < max; ++i) {
-        if (arguments[i] == "--fullscreen") {
-            fullScreen = true;
-        } else if (arguments[i] == "--serverlist") {
-            if (i + 1 < max)
-                customServerListPath = arguments[++i];
-            else
-                qWarning() << "Missing argument for --serverlist";
-        } else if (arguments[i] == "--server") {
-            if (i + 1 < max)
-                customServer = arguments[++i];
-            else
-                qWarning() << "Missing argument for --server";
-        } else if (arguments[i] == "--port") {
-            if (i + 1 < max)
-                customPort = arguments[++i].toUShort();
-            else
-                qWarning() << "Missing argument for --port";
-        } else if (arguments[i] == "--userName") {
-            if (i + 1 < max)
-                userName = arguments[++i];
-            else
-                qWarning() << "Missing argument for --userName";
-        } else if (arguments[i] == "--password") {
-            if (i + 1 < max)
-                password = arguments[++i];
-            else
-                qWarning() << "Missing argument for --password";
-        }else if (arguments[i] == "--characterIndex") {
-            if (i + 1 < max)
-                characterIndex = arguments[++i].toInt();
-            else
-                qWarning() << "Missing argument for --characterIndex";
-        }
-    }
+    commandLineParser.addOptions({
+        { "fullscreen", QGuiApplication::tr("Start in fullscreen mode") },
+        { "serverlist", QGuiApplication::tr("Use the serverlist path <path>"),
+          QGuiApplication::tr("path") },
+        { "server",
+          QGuiApplication::tr("Automatically connect to the ip <server>"),
+          QGuiApplication::tr("server"), "server.sourceoftales.org" },
+        { "port", QGuiApplication::tr("Automatically connect to the <port>"),
+          QGuiApplication::tr("port"), "9601" },
+        { "username", QGuiApplication::tr("Automatically login as <username>"),
+          QGuiApplication::tr("username") },
+        { "password",
+          QGuiApplication::tr("Automatically login with <password>"),
+          QGuiApplication::tr("password") },
+        { "character",
+          QGuiApplication::tr(
+              "Automatically select the character <character index>"),
+          QGuiApplication::tr("character index"), "-1" },
+    });
+
+    commandLineParser.process(app);
 
     QQmlContext *context = engine.rootContext();
-    context->setContextProperty("customServerListPath", customServerListPath);
-    context->setContextProperty("customServer", customServer);
-    context->setContextProperty("customPort", customPort);
-    context->setContextProperty("userName", userName);
-    context->setContextProperty("password", password);
-    context->setContextProperty("characterIndex", characterIndex);
+    context->setContextProperty("customServerListPath",
+                                commandLineParser.value("serverlist"));
+    context->setContextProperty("customServer",
+                                commandLineParser.value("server"));
+    context->setContextProperty("customPort",
+                                commandLineParser.value("port").toInt());
+    context->setContextProperty("userName",
+                                commandLineParser.value("username"));
+    context->setContextProperty("password",
+                                commandLineParser.value("password"));
+    context->setContextProperty(
+        "characterIndex", commandLineParser.value("character").toInt());
 
 #ifdef Q_OS_ANDROID
     engine.addImportPath(QLatin1String("assets:/qml"));
@@ -153,7 +143,7 @@ int main(int argc, char *argv[])
 #if defined(Q_WS_SIMULATOR) || defined(Q_OS_QNX)
     window->showFullScreen();
 #else
-    if (fullScreen)
+    if (commandLineParser.isSet("fullscreen"))
         window->showFullScreen();
     else
         window->show();

@@ -133,4 +133,5 @@ CppApplication {
         ]
     }
 
+    cpp.cxxFlags: ["-std=c++11"]
 }
