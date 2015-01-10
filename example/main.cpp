@@ -68,6 +68,9 @@ int main(int argc, char *argv[])
     QString customServerListPath;
     QString customServer = "server.sourceoftales.org";
     ushort customPort = 9601;
+    QString userName;
+    QString password;
+    int characterIndex = -1;
     bool fullScreen = false;
 
     for (int i = 1, max = arguments.length(); i < max; ++i) {
@@ -88,6 +91,21 @@ int main(int argc, char *argv[])
                 customPort = arguments[++i].toUShort();
             else
                 qWarning() << "Missing argument for --port";
+        } else if (arguments[i] == "--userName") {
+            if (i + 1 < max)
+                userName = arguments[++i];
+            else
+                qWarning() << "Missing argument for --userName";
+        } else if (arguments[i] == "--password") {
+            if (i + 1 < max)
+                password = arguments[++i];
+            else
+                qWarning() << "Missing argument for --password";
+        }else if (arguments[i] == "--characterIndex") {
+            if (i + 1 < max)
+                characterIndex = arguments[++i].toInt();
+            else
+                qWarning() << "Missing argument for --characterIndex";
         }
     }
 
@@ -95,6 +113,9 @@ int main(int argc, char *argv[])
     context->setContextProperty("customServerListPath", customServerListPath);
     context->setContextProperty("customServer", customServer);
     context->setContextProperty("customPort", customPort);
+    context->setContextProperty("userName", userName);
+    context->setContextProperty("password", password);
+    context->setContextProperty("characterIndex", characterIndex);
 
 #ifdef Q_OS_ANDROID
     engine.addImportPath(QLatin1String("assets:/qml"));

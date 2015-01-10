@@ -30,10 +30,13 @@ Image {
     property bool characterChosen: false
 
     function switchToChooseCharacter() {
-        if (client.accountClient.numberOfCharacters > 0)
+        if (client.accountClient.numberOfCharacters > 0) {
             state = "chooseCharacter";
-        else
+            if (characterIndex >= 0)
+                accountClient.chooseCharacter(characterIndex);
+        } else {
             state = "createCharacter";
+        }
     }
 
     Connections {
@@ -52,8 +55,11 @@ Image {
     Connections {
         target: accountClient
         onConnected: {
-            if (!client.reconnecting)
+            if (!client.reconnecting) {
+                if (userName !== "" && password !== "")
+                    accountClient.login(userName, password);
                 state = "login";
+            }
         }
         onLoggedOut: {
             if (state === "game")
