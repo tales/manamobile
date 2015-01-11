@@ -1,82 +1,12 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 
-MouseArea {
-    id: statusPanel;
-
-    state: "closed"
-
-    readonly property bool partlyVisible: x > -width
-
-    function toggle() {
-        state = state === "closed" ? "open" : "closed";
-    }
-
-    function limitPrecision(number, precision) {
-        var p = Math.pow(10, precision);
-        return Math.round(number * p) / p;
-    }
-
-    function openOrClose() {
-        var open = -statusPanel.x < statusPanel.width / 2;
-        statusPanel.state = ""  // hack to make sure to trigger transition
-        statusPanel.state = open ? "open" : "closed";
-    }
-
-    drag.target: statusPanel;
-    drag.axis: Drag.XAxis;
-    drag.minimumX: -statusPanel.width;
-    drag.maximumX: 0;
-    drag.filterChildren: true
-    onReleased: openOrClose();
-
-    Image {
-        id: tab
-        source: "images/tab.png"
-        y: parent.height / 4
-        anchors.left: parent.right
-        anchors.leftMargin: -3
-        smooth: false
-    }
-    Image {
-        source: "images/tab_icon_character.png"
-        anchors.centerIn: tab
-        smooth: false
-    }
-    MouseArea {
-        id: handle;
-
-        anchors.fill: tab
-        anchors.margins: -5
-
-        drag.target: statusPanel;
-        drag.axis: Drag.XAxis;
-        drag.minimumX: -statusPanel.width;
-        drag.maximumX: 0;
-
-        onClicked: toggle();
-        onReleased: openOrClose();
-    }
-
-    BorderImage {
-        anchors.fill: parent
-        anchors.leftMargin: -33;
-        anchors.rightMargin: -1
-
-        source: "images/scroll_medium_horizontal.png"
-        border.left: 40; border.top: 31
-        border.right: 38; border.bottom: 32
-        smooth: false
-        visible: partlyVisible
-    }
-
+Item {
+    anchors.fill: parent
     Item {
         id: contents
 
         anchors.fill: parent
-        anchors.topMargin: 22
-        anchors.rightMargin: 28
-        anchors.bottomMargin: 7
 
         clip: flickable.interactive
         visible: partlyVisible
@@ -214,34 +144,4 @@ MouseArea {
         }
 */
     }
-
-    ScrollTitle {
-        text: qsTr("Character")
-        anchors.horizontalCenterOffset: -14
-        visible: partlyVisible
-    }
-
-    states: [
-        State {
-            name: "open";
-
-            PropertyChanges {
-                target: statusPanel;
-                x: 0;
-            }
-        },
-        State {
-            name: "closed";
-            PropertyChanges {
-                target: statusPanel;
-                x: -statusPanel.width;
-            }
-        }
-    ]
-
-    transitions: [
-        Transition {
-            NumberAnimation { property: "x"; easing.type: Easing.OutQuad }
-        }
-    ]
 }

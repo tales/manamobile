@@ -10,6 +10,9 @@ Item {
 
     PlayerAttributes { id: playerAttributes }
 
+    property int lastNpcInteractionX: -1
+    property int lastNpcInteractionY: -1
+
     Viewport {
         id: viewport;
         width: parent.width / scale;
@@ -21,7 +24,7 @@ Item {
         Item {
             id: visibleArea
             anchors.top: parent.top
-            anchors.left: statusPage.right
+            anchors.left: leftPanel.right
             anchors.right: rightPanel.left
             anchors.bottom: chatLog.top
         }
@@ -75,12 +78,9 @@ Item {
                 }
             }
         }
-        ShopWindow {
-            anchors.centerIn: visibleArea
-        }
 
-        StatusPage {
-            id: statusPage
+        LeftPanel {
+            id: leftPanel
             anchors.top: parent.top
             anchors.bottom: chatLog.top
             anchors.topMargin: 3
@@ -115,6 +115,40 @@ Item {
             anchors.bottom: parent.bottom;
             anchors.right: parent.right;
         }
+    }
+
+    Connections {
+        target: gameClient
+        onShopOpened: {
+            leftPanel.isShopAccessible = true;
+            lastNpcInteractionX = gameClient.player.x;
+            lastNpcInteractionY = gameClient.player.y;
+        }
+        onMapChanged: {
+            leftPanel.isShopAccessible = false;
+        }
+        onPlayerDied: {
+            leftPanel.isShopAccessible = false;
+        }
+    }
+
+    Connections {
+        target: gameClient.player
+
+        onPositionChanged: {
+            if (!leftPanel.isShopAccessible)
+                return;
+
+            var distance = Math.abs(lastNpcInteractionX - gameClient.player.x) +
+                           Math.abs(lastNpcInteractionY - gameClient.player.y);
+
+            if (distance > 3 * 32)
+                leftPanel.isShopAccessible = false;
+        }
+    }
+
+    Connections {
+        target: gameClient
     }
 
     Keys.onReturnPressed: {
@@ -160,7 +194,7 @@ Item {
         updateWalkDirection();
 
         if (pressed && event.key === Qt.Key_C)
-            statusPage.toggle();
+            leftPanel.toggle("status");
 
         if (pressed && event.key === Qt.Key_I)
             rightPanel.toggle("inventory");

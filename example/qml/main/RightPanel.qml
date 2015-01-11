@@ -132,6 +132,7 @@ MouseArea {
             id: inventoryPanel
             visible: page == "inventory"
         }
+
         QuestPanel {
             id: questPanel
             visible: page == "quest"
