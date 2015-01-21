@@ -2,8 +2,9 @@ TEMPLATE = lib
 CONFIG += qt plugin
 linux*:QMAKE_LFLAGS += $$QMAKE_LFLAGS_NOUNDEF
 
-win*|linux*:!tizen:!android:DESTDIR = ../lib/libmana/qml/Mana/
-macx:DESTDIR = ../example/tales.app/Contents/Resources/qml/Mana
+win*:DESTDIR = ../lib/libmana/qml/Mana/
+else:linux*:!tizen:!android:DESTDIR = ../lib/libmana/qml/Mana/
+else:macx:DESTDIR = ../example/tales.app/Contents/Resources/qml/Mana
 else:DESTDIR = qml/Mana/
 TARGET = mana
 
@@ -167,10 +168,12 @@ HEADERS += \
     tiled/tilelayer.h \
     tiled/tileset.h
 
+
 folder_Mana.source = mana/qml/Mana
-win*|linux*:!tizen:!android:folder_Mana.target = ../lib/libmana/qml
-macx:folder_Mana.target = /../../../../example/tales.app/Contents/Resources/qml/
-else:folder_Mana.target = qml
+win*:folder_Mana.target = ../lib/libmana/qml/
+else:linux*:!tizen:!android:folder_Mana.target = ../lib/libmana/qml/
+else:macx:folder_Mana.target = ../example/tales.app/Contents/Resources/qml/
+else:folder_Mana.target = qml/
 DEPLOYMENTFOLDERS = folder_Mana
 
 # Please do not modify the following two lines. Required for deployment.
