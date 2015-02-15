@@ -110,7 +110,9 @@ private:
 
 inline AbilityInfo::AbilityInfo(int id, QObject *parent):
     QObject(parent),
-    mId(id)
+    mId(id),
+    mTargetType(TARGET_BEING),
+    mPriority(0)
 {}
 
 inline int AbilityInfo::id() const

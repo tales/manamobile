@@ -12,6 +12,8 @@ QT += network qml quick
 
 DEFINES += QT_NO_URL_CAST_FROM_STRING
 
+CONFIG += c++11
+
 INCLUDEPATH += src
 
 # Pretend we're building the Tiled library to make sure it doesn't try to

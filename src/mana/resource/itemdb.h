@@ -108,7 +108,7 @@ class ItemInfo : public QObject
 
 public:
     explicit ItemInfo(int id, QObject *parent = 0)
-        : QObject(parent), mId(id)
+        : QObject(parent), mId(id), mType(ITEM_UNUSABLE), mWeight(0)
     {}
 
     /**

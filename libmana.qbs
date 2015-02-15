@@ -214,4 +214,5 @@ DynamicLibrary {
     }
 
     cpp.defines: ["DEBUG_NETWORK"]
+    cpp.cxxFlags: ["-std=c++11"]
 }

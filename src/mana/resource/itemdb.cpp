@@ -80,6 +80,7 @@ ItemDB *ItemDB::mInstance = 0;
 
 ItemDB::ItemDB(QObject *parent)
     : QObject(parent)
+    , mReply(nullptr)
     , mLoaded(false)
 {
     Q_ASSERT(!mInstance);
