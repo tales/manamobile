@@ -161,6 +161,16 @@ Item {
 
         if (pressed && event.key === Qt.Key_Q)
             rightPanel.toggle("quest");
+
+        if (pressed && event.key === Qt.Key_Space)
+            startTalkingToNearestNpc();
+    }
+
+    function startTalkingToNearestNpc() {
+        var talkTarget = gameClient.beingListModel.closestBeingAround(gameClient.player);
+        if (talkTarget && talkTarget.type === Being.OBJECT_NPC) {
+            gameClient.talkToNpc(talkTarget);
+        }
     }
 
     Keys.onReleased: handleKeyEvent(event, false);
