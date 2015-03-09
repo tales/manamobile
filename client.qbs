@@ -117,6 +117,7 @@ CppApplication {
             "roundbutton.png",
             "roundbutton_pressed.png",
             "scroll_button.png",
+            "scroll_button_focused.png",
             "scroll_button_pressed.png",
             "scroll_footer.png",
             "scroll_header.png",

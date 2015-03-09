@@ -59,37 +59,40 @@ BorderImage {
                 font.pixelSize: 14
             }
 
-            Column {
+            ListView {
                 id: choices
                 anchors.left: parent.left
                 anchors.right: parent.right
+
+                height: childrenRect.height
+
                 spacing: 5
 
-                Repeater {
-                    model: gameClient.npcState === GameClient.NpcAwaitChoice ? gameClient.npcChoices : null
+                property bool active: gameClient.npcState === GameClient.NpcAwaitChoice
+                model: active ? gameClient.npcChoices : null
+                focus: active
 
-                    delegate: BrownButton {
-                        anchors.left: choices.left
-                        anchors.right: choices.right
+                delegate: BrownButton {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
 
-                        property bool waitingForReply: false
-                        keepPressed: waitingForReply;
+                    property bool waitingForReply: false
+                    keepPressed: waitingForReply;
 
-                        text: modelData
-                        onClicked: {
-                            gameClient.chooseNpcOption(model.index);
-                            waitingForReply = true;
-                        }
+                    text: modelData
+                    onClicked: {
+                        gameClient.chooseNpcOption(model.index);
+                        waitingForReply = true;
+                    }
 
-                        ProgressIndicator {
-                            id: waitForChoiceIndicator;
+                    ProgressIndicator {
+                        id: waitForChoiceIndicator;
 
-                            running: waitingForReply;
+                        running: waitingForReply;
 
-                            height: parent.height;
-                            width: height;
-                            anchors.right: parent.right;
-                        }
+                        height: parent.height;
+                        width: height;
+                        anchors.right: parent.right;
                     }
                 }
             }

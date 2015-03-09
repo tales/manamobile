@@ -17,6 +17,8 @@ Button {
             source: {
                 if (control.pressed || button.keepPressed)
                     "images/scroll_button_pressed.png"
+                else if (button.focus)
+                    "images/scroll_button_focused.png"
                 else
                     "images/scroll_button.png"
             }
