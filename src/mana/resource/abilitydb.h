@@ -85,6 +85,7 @@ public:
     Q_INVOKABLE void unload();
     bool isLoaded() const { return mLoaded; }
 
+    Q_INVOKABLE Mana::AbilityInfo *getInfoByName(const QString &name) const;
     Q_INVOKABLE Mana::AbilityInfo *getInfo(int id) const
     { return mAbilities[id]; }
 

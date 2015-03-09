@@ -170,6 +170,9 @@ Item {
 
         if (pressed && event.key === Qt.Key_Space)
             startTalkingToNearestNpc();
+
+        if (pressed && event.key === Qt.Key_Up)
+            strike();
     }
 
     function startTalkingToNearestNpc() {
@@ -177,6 +180,11 @@ Item {
         if (talkTarget && talkTarget.type === Being.OBJECT_NPC) {
             gameClient.talkToNpc(talkTarget);
         }
+    }
+
+    function strike() {
+        var abilityId = abilityDB.getInfoByName("Strike").id;
+        gameClient.useAbilityOnDirection(abilityId);
     }
 
     Keys.onReleased: handleKeyEvent(event, false);

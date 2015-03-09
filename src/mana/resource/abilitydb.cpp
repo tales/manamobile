@@ -58,6 +58,17 @@ void AbilityDB::unload()
     emit abilitiesChanged();
 }
 
+AbilityInfo *AbilityDB::getInfoByName(const QString &name) const
+{
+    for (auto &it : mAbilities.values()) {
+        if (it->name() == name) {
+            return it;
+        }
+    }
+
+    return nullptr;
+}
+
 static AbilityInfo::AbilityTargetType targetTypeFromString(const QString &value)
 {
     if (value == "being")
