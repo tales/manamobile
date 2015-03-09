@@ -68,6 +68,12 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
             anchors.bottomMargin: narrow ? 120 : 50
+
+            onVisibleChanged: {
+                if (!visible) {
+                    gamePage.focus = true;
+                }
+            }
         }
         ShopWindow {
             anchors.centerIn: visibleArea

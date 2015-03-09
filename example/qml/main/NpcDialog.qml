@@ -103,10 +103,15 @@ BorderImage {
 
                 anchors.right: parent.right
                 visible: gameClient.npcState === GameClient.NpcAwaitNext
-                onClicked: {
+                focus: visible
+
+                function next() {
                     gameClient.nextNpcMessage();
                     waitingForReply = true;
                 }
+
+                onClicked: next()
+                Keys.onSpacePressed: next()
 
                 ProgressIndicator {
                     id: waitForNextIndicator;
