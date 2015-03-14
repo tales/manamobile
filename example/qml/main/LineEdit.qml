@@ -10,6 +10,8 @@ TextField {
 
     font.pixelSize: (height - 10) * 0.7;
 
+    textColor: "black"
+
     style: TextFieldStyle {
         background: BorderImage {
             source: "images/lineedit.png"
