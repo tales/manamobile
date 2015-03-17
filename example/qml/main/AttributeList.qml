@@ -6,6 +6,11 @@ GridLayout {
     rowSpacing: 5
     columnSpacing: 5
 
+    anchors.left: parent.left
+    anchors.right: parent.right
+
+    property int itemWidth: width / 2 - columnSpacing
+
     property bool changesPlanned:
         pointsToDistribute !== gameClient.attributePoints ||
         pointsToCorrect !== gameClient.correctionPoints
@@ -83,20 +88,24 @@ GridLayout {
 
         Layout.row: 0
         Layout.column: 0
-        Layout.preferredWidth: width
+        Layout.preferredWidth: parent.itemWidth
         Layout.preferredHeight: height
     }
 
-    AttributeLabel {
-        name: qsTr("Damage")
-        value: {
-            var base = playerAttributes.damage;
-            var min = Math.round(base);
-            var max = Math.round(base + playerAttributes.damageDelta);
-            return min + "-" + max;
+    ColumnLayout {
+        AttributeLabel {
+            name: qsTr("Damage")
+            value: {
+                var base = playerAttributes.damage;
+                var min = Math.round(base);
+                var max = Math.round(base + playerAttributes.damageDelta);
+                return min + "-" + max;
+            }
         }
+
         Layout.row: 0
         Layout.column: 1
+        Layout.preferredWidth: parent.itemWidth
         Layout.alignment: Qt.AlignLeft | Qt.AlignTop;
     }
 
@@ -110,12 +119,12 @@ GridLayout {
 
         Layout.row: 1
         Layout.column: 0
-        Layout.preferredWidth: width
+        Layout.preferredWidth: parent.itemWidth
         Layout.preferredHeight: height
         Layout.alignment: Qt.AlignLeft | Qt.AlignTop;
     }
 
-    Column {
+    ColumnLayout {
         spacing: 5
 
         AttributeLabel {
@@ -130,7 +139,7 @@ GridLayout {
 
         Layout.row: 1
         Layout.column: 1
-        Layout.fillWidth: true
+        Layout.preferredWidth: parent.itemWidth
         Layout.alignment: Qt.AlignLeft | Qt.AlignTop;
     }
 
@@ -144,17 +153,20 @@ GridLayout {
 
         Layout.row: 3
         Layout.column: 0
-        Layout.preferredWidth: width
+        Layout.preferredWidth: parent.itemWidth
         Layout.preferredHeight: height
         Layout.alignment: Qt.AlignLeft | Qt.AlignTop;
     }
 
-    AttributeLabel {
-        name: qsTr("Hit chance")
-        value: limitPrecision(playerAttributes.hitChance, 1)
+    ColumnLayout {
+        AttributeLabel {
+            name: qsTr("Hit chance")
+            value: limitPrecision(playerAttributes.hitChance, 1)
+        }
+
         Layout.row: 3
         Layout.column: 1
-        Layout.fillWidth: true
+        Layout.preferredWidth: parent.itemWidth
         Layout.alignment: Qt.AlignLeft | Qt.AlignTop;
     }
 
@@ -168,12 +180,12 @@ GridLayout {
 
         Layout.row: 4
         Layout.column: 0
-        Layout.preferredWidth: width
+        Layout.preferredWidth: parent.itemWidth
         Layout.preferredHeight: height
         Layout.alignment: Qt.AlignLeft | Qt.AlignTop;
     }
 
-    Column {
+    ColumnLayout {
         spacing: 5
 
         AttributeLabel {
@@ -193,7 +205,7 @@ GridLayout {
 
         Layout.row: 4
         Layout.column: 1
-        Layout.fillWidth: true
+        Layout.preferredWidth: parent.itemWidth
         Layout.alignment: Qt.AlignLeft | Qt.AlignTop;
     }
 
@@ -207,7 +219,7 @@ GridLayout {
 
         Layout.row: 7
         Layout.column: 0
-        Layout.preferredWidth: width
+        Layout.preferredWidth: parent.itemWidth
         Layout.preferredHeight: height
         Layout.alignment: Qt.AlignLeft | Qt.AlignTop;
     }
@@ -222,7 +234,7 @@ GridLayout {
 
         Layout.row: 8
         Layout.column: 0
-        Layout.preferredWidth: width
+        Layout.preferredWidth: parent.itemWidth
         Layout.preferredHeight: height
         Layout.alignment: Qt.AlignLeft | Qt.AlignTop;
     }

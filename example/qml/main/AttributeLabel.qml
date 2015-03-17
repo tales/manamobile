@@ -4,7 +4,8 @@ Item {
     property alias name: nameLabel.text
     property alias value: valueLabel.text
 
-    width: 110
+    anchors.left: parent.left
+    anchors.right: parent.right
     height: 14
 
     Rectangle {
@@ -14,6 +15,7 @@ Item {
         anchors.bottom: parent.bottom
         color: "#C39753"
     }
+
     Rectangle {
         id: valueLabelBackground
         height: 1
@@ -25,6 +27,7 @@ Item {
         border.width: 1
         color: "transparent"
     }
+
     Text {
         id: nameLabel
         font.pixelSize: 10
@@ -33,6 +36,7 @@ Item {
         anchors.left: parent.left
         anchors.right: valueLabelBackground.left
     }
+
     Text {
         id: valueLabel
         anchors.centerIn: valueLabelBackground

@@ -12,14 +12,15 @@ MouseArea {
     property int allowedIncrease: 0
     property int allowedDecrease: 0
 
-    clip: true
-    width: 110
     height: 14 + (extended ? 30 : 0)
 
     onClicked: extended = !extended
 
-    Column {
+    ColumnLayout {
         spacing: 5
+
+        anchors.left: parent.left
+        anchors.right: parent.right
 
         AttributeLabel {
             id: label
@@ -39,9 +40,9 @@ MouseArea {
         }
 
         RowLayout {
-            anchors.left: parent.left
-            anchors.right: parent.right
             spacing: 5
+
+            visible: attributeEdit.extended
 
             BrownButton {
                 text: "-"
@@ -63,6 +64,8 @@ MouseArea {
                         ++plannedChange;
                 }
             }
+
+            Layout.fillWidth: true
         }
     }
 }
