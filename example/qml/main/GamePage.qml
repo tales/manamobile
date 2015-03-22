@@ -171,7 +171,6 @@ Item {
         anchors.left: parent.left;
         anchors.right: parent.right;
         anchors.bottom: parent.bottom;
-        anchors.bottomMargin: Qt.inputMethod.visible ? 316 : 0
     }
 
     states: [
