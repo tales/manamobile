@@ -40,7 +40,6 @@ MapResource::MapResource(const QUrl &url,
     , mPath(QFileInfo(path).path())
     , mMap(0)
     , mCollisionLayer(0)
-    , mMapReply(nullptr)
 {
     ResourceManager *resourceManager = ResourceManager::instance();
     QNetworkReply *reply = resourceManager->requestFile(url);

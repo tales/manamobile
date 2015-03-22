@@ -80,7 +80,6 @@ ItemDB *ItemDB::mInstance = 0;
 
 ItemDB::ItemDB(QObject *parent)
     : QObject(parent)
-    , mReply(nullptr)
     , mLoaded(false)
 {
     Q_ASSERT(!mInstance);
@@ -92,9 +91,8 @@ void ItemDB::load()
     if (mLoaded)
         return;
 
-    mReply = ResourceManager::instance()->requestFile(ITEMS_DB_FILE);
-
-    connect(mReply, SIGNAL(finished()), this, SLOT(fileReady()));
+    QNetworkReply *reply = ResourceManager::instance()->requestFile(ITEMS_DB_FILE);
+    connect(reply, SIGNAL(finished()), this, SLOT(fileReady()));
 }
 
 void ItemDB::unload()
@@ -235,7 +233,9 @@ ItemInfo *ItemDB::readItem(XmlReader &xml)
 
 void ItemDB::fileReady()
 {
-    XmlReader xml(mReply);
+    QNetworkReply *reply = static_cast<QNetworkReply *>(sender());
+    reply->deleteLater();
+    XmlReader xml(reply);
 
     if (!xml.readNextStartElement() || xml.name() != "items") {
         qWarning() << "Error loading items.xml";

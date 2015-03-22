@@ -86,7 +86,6 @@ private:
 
     ItemInfo *readItem(XmlReader &xml);
 
-    QNetworkReply *mReply;
     bool mLoaded;
     QList<Stat> mExtraStats;
     QMap<int, ItemInfo *> mItems;

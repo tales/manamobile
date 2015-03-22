@@ -63,7 +63,6 @@ private:
     Tiled::Map *mMap;
     Tiled::TileLayer *mCollisionLayer;
 
-    QNetworkReply* mMapReply;
     QList<QNetworkReply*> mPendingResources;
     QSet<ImageResource*> mPendingImageResources;
     QHash<Tiled::Tileset*, ImageResource*> mImageResources;
