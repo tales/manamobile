@@ -142,6 +142,16 @@ BorderImage {
                     width: parent.width * 0.45;
                     height: parent.height;
                     inputMethodHints: Qt.ImhDigitsOnly;
+                    focus: parent.visible
+
+
+                    Keys.onEnterPressed: okButton.submit();
+                    Keys.onReturnPressed: {
+                        if (event.modifiers === Qt.NoModifier)
+                            okButton.submit();
+                        else
+                            event.accepted = false;
+                    }
 
                     Connections {
                         target: gameClient;
@@ -155,8 +165,10 @@ BorderImage {
                 }
 
                 BrownButton {
+                    id: okButton
                     text: qsTr("OK")
-                    onClicked: {
+
+                    function submit() {
                         var requireSecondClick = false;
                         var value = parseInt(numberInput.text.toLocaleLowerCase());
                         if (value > gameClient.npcMaximumNumber) {
@@ -172,7 +184,11 @@ BorderImage {
                             gameClient.sendNpcNumberInput(value);
                             numberInput.text = "";
                         }
+
+                        Qt.inputMethod.hide();
                     }
+
+                    onClicked: submit();
                 }
             }
         }
