@@ -36,9 +36,12 @@ Button {
                 id: label
                 text: control.text
                 color: "#3f2b25"
-                anchors.centerIn: parent
                 font.pixelSize: 14
                 wrapMode: Text.WordWrap
+
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
+                anchors.centerIn: parent
             }
 
             Image {
