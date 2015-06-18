@@ -152,6 +152,7 @@ Item {
     }
 
     Keys.onReturnPressed: {
+        // Mod + Enter is fullscreen
         if (event.modifiers === Qt.NoModifier)
             chatBar.open();
         else

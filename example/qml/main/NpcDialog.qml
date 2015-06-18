@@ -147,6 +147,7 @@ BorderImage {
 
                     Keys.onEnterPressed: okButton.submit();
                     Keys.onReturnPressed: {
+                        // Mod + Enter is fullscreen
                         if (event.modifiers === Qt.NoModifier)
                             okButton.submit();
                         else

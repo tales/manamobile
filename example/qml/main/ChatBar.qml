@@ -9,6 +9,7 @@ FocusScope {
     }
 
     Keys.onReturnPressed: {
+        // Mod + Enter is fullscreen
         if (event.modifiers === Qt.NoModifier)
             sayText();
         else
