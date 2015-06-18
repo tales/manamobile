@@ -8,7 +8,7 @@ import QtQuick.Controls.Styles 1.0
 Button {
     id: button
 
-    implicitHeight: Math.max(sizeLabel.height, 20)
+    implicitHeight: Math.max(sizeLabel.height + 2 * 5, 20)
 
     property bool keepPressed: false
 
@@ -39,9 +39,11 @@ Button {
                 font.pixelSize: 14
                 wrapMode: Text.WordWrap
 
-                width: parent.width
-                horizontalAlignment: Text.AlignHCenter
-                anchors.centerIn: parent
+                anchors.right: parent.right
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.rightMargin: 7
+                anchors.leftMargin: 7
             }
 
             Image {
