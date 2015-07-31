@@ -1,4 +1,6 @@
 import QtQuick 2.0
+import QtQuick.Layouts 1.1
+import Mana 1.0
 
 Item {
     anchors.fill: parent
@@ -31,34 +33,6 @@ Item {
                 visible: item.isEquipped
             }
 
-            Image {
-                id: itemGraphic
-                x: 2; y: 2
-                // TODO: use imageprovider for this + handling dye
-                source: resourceManager.dataUrl + resourceManager.itemIconsPrefix + info.image
-                smooth: false
-            }
-
-            Text {
-                text: info.name;
-
-                anchors.left: parent.left
-                anchors.leftMargin: 2 + 32 + 5
-                anchors.verticalCenter: parent.verticalCenter
-                font.pixelSize: 12
-            }
-
-            Text {
-                text: item.amount
-                visible: item.amount > 1
-
-                anchors.right: parent.right
-                anchors.rightMargin: 4
-                anchors.verticalCenter: parent.verticalCenter
-                font.bold: true
-                font.pixelSize: 12
-            }
-
             MouseArea {
                 anchors.fill: parent
 
@@ -67,6 +41,54 @@ Item {
                         gameClient.unequip(model.item.slot);
                     else
                         gameClient.equip(model.item.slot);
+                }
+            }
+
+            RowLayout {
+                anchors.fill: parent
+                anchors.topMargin: 2
+                anchors.leftMargin: 2
+                anchors.rightMargin: 4
+
+                Image {
+                    id: itemGraphic
+                    // TODO: use imageprovider for this + handling dye
+                    source: resourceManager.dataUrl + resourceManager.itemIconsPrefix + info.image
+                    smooth: false
+
+                    Layout.maximumWidth: 32
+                }
+
+                Text {
+                    text: info.name;
+                    elide: Text.ElideRight
+                    font.pixelSize: 12
+                    clip: true
+                    Layout.minimumWidth: 1
+                    Layout.maximumWidth: implicitWidth
+                    Layout.fillWidth: true
+                }
+
+                Text {
+                    anchors.leftMargin: -100
+                    text: item.amount > 1 ? "×" + item.amount + "   " : " "
+                    font.pixelSize: 8
+
+                    Layout.fillWidth: true
+                }
+
+                Text {
+                    text: info.value
+                    font.pixelSize: 12
+
+                    visible: gameClient.shopMode !== GameClient.NoShop
+                }
+
+                Image {
+                    source: "images/icon_money.png"
+                    smooth: false
+
+                    visible: gameClient.shopMode !== GameClient.NoShop
                 }
             }
         }

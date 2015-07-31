@@ -103,6 +103,7 @@ class ItemInfo : public QObject
     Q_PROPERTY(QString description READ description CONSTANT)
     Q_PROPERTY(QStringList effects READ effects CONSTANT)
     Q_PROPERTY(int weight READ weight CONSTANT)
+    Q_PROPERTY(int value READ value CONSTANT)
     Q_PROPERTY(QString particleFx READ particleFx CONSTANT)
 
 public:
@@ -159,6 +160,9 @@ public:
     int weight() const { return mWeight; }
     void setWeight(int weight) { mWeight = weight; }
 
+    int value() const { return mValue; }
+    void setValue(int value) { mValue = value; }
+
     QMap<BeingGender, QVector<SpriteReference *> > sprites() const
     { return mSprites; }
 
@@ -185,6 +189,7 @@ private:
     QString mDescription;
     QStringList mEffects;
     int mWeight;
+    int mValue;
 
     QMap<BeingGender, QVector<SpriteReference *> > mSprites;
     QString mParticleFx;

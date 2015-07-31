@@ -172,6 +172,7 @@ ItemInfo *ItemDB::readItem(XmlReader &xml)
     item->setName(attr.value("name").toString());
     item->setDescription(attr.value("description").toString());
     item->setWeight(attr.value("weight").toInt());
+    item->setValue(attr.value("value").toInt());
 
     SpriteDisplay display;
     item->setImage(attr.value("image").toString());
