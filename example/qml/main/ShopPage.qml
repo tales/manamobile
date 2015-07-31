@@ -53,6 +53,11 @@ Item {
                         font.pixelSize: 12
                         color: affordable ? "black" : "red"
                     }
+
+                    Image {
+                        source: "images/icon_money.png"
+                        smooth: false
+                    }
                 }
 
                 BrownButton {
