@@ -46,8 +46,7 @@ Item {
                     }
 
                     Text {
-                        text: amount
-                        visible: amount > 0
+                        text: cost
 
                         font.bold: true
                         font.pixelSize: 12
