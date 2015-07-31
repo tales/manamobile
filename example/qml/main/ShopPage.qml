@@ -8,6 +8,7 @@ Item {
 
     ListView {
         anchors.fill: parent
+        clip: true
 
         model: itemDB.isLoaded ? gameClient.shopListModel : null
         delegate: MouseArea {
