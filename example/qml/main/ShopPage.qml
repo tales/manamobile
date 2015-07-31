@@ -50,7 +50,6 @@ Item {
                     Text {
                         text: cost
 
-                        font.bold: true
                         font.pixelSize: 12
                         color: affordable ? "black" : "red"
                     }
