@@ -13,6 +13,7 @@ Item {
         delegate: MouseArea {
             id: item
             property variant info: itemDB.getInfo(model.itemId)
+            property bool affordable: cost <= playerAttributes.gold
             property bool extended: false
 
             anchors.left: parent.left
@@ -50,12 +51,13 @@ Item {
 
                         font.bold: true
                         font.pixelSize: 12
+                        color: affordable ? "black" : "red"
                     }
                 }
 
                 BrownButton {
                     text: "Buy"
-                    visible: item.extended
+                    visible: item.extended && affordable
 
                     Layout.alignment: Qt.AlignHCenter
                     Layout.preferredWidth: 100
@@ -67,7 +69,7 @@ Item {
             }
 
             onClicked: {
-                extended = !extended;
+                extended = !extended && affordable;
             }
         }
     }
