@@ -29,35 +29,12 @@ Item {
                 anchors.left: parent.left
                 anchors.right: parent.right
 
-                RowLayout {
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    Image {
-                        id: itemGraphic
-                        x: 2; y: 2
-                        // TODO: use imageprovider for this + handling dye
-                        source: resourceManager.dataUrl + resourceManager.itemIconsPrefix + info.image
-                        smooth: false
-                    }
-
-                    Text {
-                        text: info.name
-
-                        Layout.fillWidth: true
-                        font.pixelSize: 12
-                    }
-
-                    Text {
-                        text: cost
-
-                        font.pixelSize: 12
-                        color: affordable ? "black" : "red"
-                    }
-
-                    Image {
-                        source: "images/icon_money.png"
-                        smooth: false
-                    }
+                ItemRow {
+                    itemInfo: info
+                    amount: model.amount
+                    value: cost
+                    showValue: true
+                    highlightValue: !affordable
                 }
 
                 BrownButton {

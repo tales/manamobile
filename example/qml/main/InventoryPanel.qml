@@ -1,5 +1,4 @@
 import QtQuick 2.0
-import QtQuick.Layouts 1.1
 import Mana 1.0
 
 Item {
@@ -44,71 +43,11 @@ Item {
                 }
             }
 
-            RowLayout {
-                anchors.fill: parent
-                anchors.topMargin: 2
-                anchors.leftMargin: 2
-                anchors.rightMargin: 4
-
-                Item {
-                    implicitHeight: 32
-                    implicitWidth: 32
-
-                    Image {
-                        id: itemGraphic
-                        // TODO: use imageprovider for this + handling dye
-                        source: resourceManager.dataUrl + resourceManager.itemIconsPrefix + info.image
-                        smooth: false
-
-                    }
-
-                    Rectangle {
-                        color: "black"
-                        radius: 6
-                        opacity: 0.5
-                        visible: item.amount > 1
-
-                        anchors.centerIn: amountLabel
-                        width: amountLabel.width + 10
-                        height: amountLabel.height + 4
-                    }
-
-                    Text {
-                        id: amountLabel
-                        text: item.amount
-                        font.pixelSize: 8
-                        color: "white"
-                        visible: item.amount > 1
-
-                        anchors.right: itemGraphic.right
-                        anchors.rightMargin: 5
-                        anchors.bottom: itemGraphic.bottom
-                        anchors.bottomMargin: 4
-                    }
-                }
-
-                Text {
-                    text: info.name;
-                    elide: Text.ElideRight
-                    font.pixelSize: 12
-                    clip: true
-
-                    Layout.fillWidth: true
-                }
-
-                Text {
-                    text: info.value
-                    font.pixelSize: 12
-
-                    visible: gameClient.shopMode !== GameClient.NoShop
-                }
-
-                Image {
-                    source: "images/icon_money.png"
-                    smooth: false
-
-                    visible: gameClient.shopMode !== GameClient.NoShop
-                }
+            ItemRow {
+                itemInfo: info
+                amount: item.amount
+                value: info.value
+                showValue: gameClient.shopMode !== GameClient.NoShop
             }
         }
     }
