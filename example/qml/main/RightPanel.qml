@@ -11,14 +11,20 @@ MouseArea {
 
     readonly property bool partlyVisible: x < parent.width
 
-    function toggle(_page) {
-        if (state == "closed") {
+    function open(_page) {
+        if (state === "closed") {
             page = _page;
             state = "open";
         } else if (page !== _page) {
             page = _page;
-        } else {
+        }
+    }
+
+    function toggle(_page) {
+        if (state === "open" && page === page) {
             state = "closed";
+        } else {
+            open(_page);
         }
     }
 

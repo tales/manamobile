@@ -121,6 +121,7 @@ Item {
         target: gameClient
         onShopOpened: {
             leftPanel.isShopAccessible = true;
+            rightPanel.open("inventory");
             lastNpcInteractionX = gameClient.player.x;
             lastNpcInteractionY = gameClient.player.y;
         }
