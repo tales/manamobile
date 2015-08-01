@@ -50,13 +50,41 @@ Item {
                 anchors.leftMargin: 2
                 anchors.rightMargin: 4
 
-                Image {
-                    id: itemGraphic
-                    // TODO: use imageprovider for this + handling dye
-                    source: resourceManager.dataUrl + resourceManager.itemIconsPrefix + info.image
-                    smooth: false
+                Item {
+                    implicitHeight: 32
+                    implicitWidth: 32
 
-                    Layout.maximumWidth: 32
+                    Image {
+                        id: itemGraphic
+                        // TODO: use imageprovider for this + handling dye
+                        source: resourceManager.dataUrl + resourceManager.itemIconsPrefix + info.image
+                        smooth: false
+
+                    }
+
+                    Rectangle {
+                        color: "black"
+                        radius: 6
+                        opacity: 0.5
+                        visible: item.amount > 1
+
+                        anchors.centerIn: amountLabel
+                        width: amountLabel.width + 10
+                        height: amountLabel.height + 4
+                    }
+
+                    Text {
+                        id: amountLabel
+                        text: item.amount
+                        font.pixelSize: 8
+                        color: "white"
+                        visible: item.amount > 1
+
+                        anchors.right: itemGraphic.right
+                        anchors.rightMargin: 5
+                        anchors.bottom: itemGraphic.bottom
+                        anchors.bottomMargin: 4
+                    }
                 }
 
                 Text {
@@ -64,15 +92,6 @@ Item {
                     elide: Text.ElideRight
                     font.pixelSize: 12
                     clip: true
-                    Layout.minimumWidth: 1
-                    Layout.maximumWidth: implicitWidth
-                    Layout.fillWidth: true
-                }
-
-                Text {
-                    anchors.leftMargin: -100
-                    text: item.amount > 1 ? "×" + item.amount + "   " : " "
-                    font.pixelSize: 8
 
                     Layout.fillWidth: true
                 }
