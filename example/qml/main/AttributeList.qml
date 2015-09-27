@@ -75,7 +75,9 @@ GridLayout {
 
     function limitPrecision(number, precision) {
         var p = Math.pow(10, precision);
-        return Math.round(number * p) / p;
+        var roundedValue =  Math.round(number * p) / p;
+
+        return roundedValue.toString();
     }
 
     AttributeEdit {
