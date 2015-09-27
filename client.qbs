@@ -58,6 +58,7 @@ CppApplication {
             "HealthBar.qml",
             "ImageButton.qml",
             "InventoryPanel.qml",
+            "ItemRow.qml",
             "Joystick.qml",
             "LineEdit.qml",
             "LoginPage.qml",
