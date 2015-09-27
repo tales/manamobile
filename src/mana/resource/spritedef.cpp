@@ -197,8 +197,6 @@ void SpriteDefinition::readAction(XmlReader &xml)
 
     QMap<QString, ImageSet *>::iterator it = mImageSets.find(imageSetName);
     if (it == mImageSets.end()) {
-        qWarning() << Q_FUNC_INFO << "Imageset"
-                   << imageSetName << "not defined!";
         return;
     }
     ImageSet *imageSet = it.value();
