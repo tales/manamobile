@@ -193,7 +193,7 @@ Image {
         target: gameClient
 
         onStateChanged: {
-            if (state === "game" && gameClient.state === ENetClient.Disconnected) {
+            if (window.state === "game" && gameClient.state === ENetClient.Disconnected) {
                 accountClient.disconnect();
                 chatClient.disconnect();
                 window.initialize();
