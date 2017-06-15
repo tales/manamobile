@@ -21,9 +21,6 @@
 
 #include <QQuickItem>
 
-class QNetworkReply;
-class QSGTexture;
-
 namespace Tiled {
 class Map;
 class MapRenderer;

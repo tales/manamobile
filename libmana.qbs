@@ -36,7 +36,7 @@ DynamicLibrary {
         qbs.install: true
         qbs.installDir: "lib/libmana/qml/Mana"
         files: ["ServerListModel.qml"]
-        prefix: ["src/mana/qml/Mana/"]
+        prefix: "src/mana/qml/Mana/"
     }
 
     Group {
