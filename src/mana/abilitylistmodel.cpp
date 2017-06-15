@@ -131,8 +131,10 @@ void AbilityListModel::timerEvent(QTimerEvent *event)
     Q_UNUSED(event);
     foreach (Ability *ability, mAbilitiesList) {
         unsigned remainingMilliseconds = ability->remainingMilliseconds();
-        remainingMilliseconds -= TIMER_DELAY;
-        remainingMilliseconds = std::max(remainingMilliseconds, 0U);
+        if (remainingMilliseconds > TIMER_DELAY)
+            remainingMilliseconds -= TIMER_DELAY;
+        else
+            remainingMilliseconds = 0;
         ability->setRemainingMilliseconds(remainingMilliseconds);
     }
 }
