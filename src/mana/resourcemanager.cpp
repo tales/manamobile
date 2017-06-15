@@ -182,7 +182,7 @@ void ResourceManager::removeResource(Resource *resource)
 
 void ResourceManager::cleanUpResources()
 {
-    unsigned releaseTime = QDateTime::currentMSecsSinceEpoch() - CACHE_TIME;
+    qint64 releaseTime = QDateTime::currentMSecsSinceEpoch() - CACHE_TIME;
 
     foreach (Resource *resource, mResources)
         if (resource->refCount() == 0 && resource->releaseTime() < releaseTime)

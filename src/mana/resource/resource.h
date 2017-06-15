@@ -59,7 +59,7 @@ public:
 
     int refCount() const;
 
-    unsigned releaseTime() const;
+    qint64 releaseTime() const;
 
     Status status() const;
     void setStatus(Status newStatus);
@@ -74,7 +74,7 @@ private:
     unsigned mRefCount;
     QUrl mUrl;
     // Time when the resource expired
-    unsigned mReleaseTime;
+    qint64 mReleaseTime;
     Status mStatus;
 };
 
@@ -85,7 +85,7 @@ inline const QUrl &Resource::url() const
 inline int Resource::refCount() const
 { return mRefCount; }
 
-inline unsigned Resource::releaseTime() const
+inline qint64 Resource::releaseTime() const
 { return mReleaseTime; }
 
 inline Resource::Status Resource::status() const
